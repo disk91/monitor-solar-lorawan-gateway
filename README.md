@@ -12,16 +12,17 @@ The purpose of this project is to monitor a LoRaWan / TheThingsNetwork solar gat
 
 You can find project details on [Author blog](https://www.disk91.com)
 
-## Hardware involved
+## Main Hardware involved
 - LoRa Radio Node board (or Arduino + rfm95)
 - LifePO4 3.2V AA battery
-- 
+- INA219 Voltage and Current sensor
 
 ## Library required
 - MCCI LoRaWAN LMIC (by IBM, Matthis Kooijman...) >= 3.2.0
 - Low-Power (by Rocket Scream Electronics) >= 1.6.0
 
 ## Schematic
+- See [related blog post](https://www.disk91.com)
 
 
 ## Setup
