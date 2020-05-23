@@ -10,7 +10,7 @@ The purpose of this project is to monitor a LoRaWan / TheThingsNetwork solar gat
 
 ## Project details
 
-You can find project details on [Author blog](https://www.disk91.com)
+You can find project details on [Author blog](https://www.disk91.com/2020/projects/iot/lorawan-solar-gateway-monitoring/)
 
 ## Main Hardware involved
 - LoRa Radio Node board (or Arduino + rfm95)
@@ -22,7 +22,7 @@ You can find project details on [Author blog](https://www.disk91.com)
 - Low-Power (by Rocket Scream Electronics) >= 1.6.0
 
 ## Schematic
-- See [related blog post](https://www.disk91.com)
+- See [related blog post](https://www.disk91.com/2020/projects/iot/lorawan-solar-gateway-monitoring/)
 
 
 ## Setup
