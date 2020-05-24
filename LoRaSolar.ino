@@ -92,10 +92,11 @@ uint8_t readExternalVoltage() {
  * voltage is 0.01 V unit / current is 0.01 A unit / power is 0.01 W
  */
 void readBatteryCurrentAndVoltage(int16_t * voltage, int16_t * current, int16_t * pwr) {
-    ina219.getData( voltage, current, pwr );
+    int32_t _pwr;
+    ina219.getData( voltage, current, &_pwr );
     *voltage /= 10;
     *current /= 10;
-    *pwr /= 10;
+    *pwr = (int16_t)(_pwr / 10);
 }
 
 void loop() {

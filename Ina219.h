@@ -131,7 +131,7 @@ class INA219b
                 float i_max_expected = D_I_MAX_EXPECTED ///< Maximum current draw of bus + shunt.
                 );
 */
-     void getData( int16_t * mVolt, int16_t * mAmpere, int16_t * mWatt ) ;
+     void getData( int16_t * mVolt, int16_t * mAmpere, int32_t * mWatt ) ;
     
   private:
     /// INA219 memory registers.

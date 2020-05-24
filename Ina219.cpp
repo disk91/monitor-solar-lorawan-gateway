@@ -60,7 +60,7 @@ INA219b::INA219b() {
 }
 
 
-void INA219b::getData( int16_t * mVolt, int16_t * mAmpere, int16_t * mWatt ) {
+void INA219b::getData( int16_t * mVolt, int16_t * mAmpere, int32_t * mWatt ) {
 
   // configure
   uint16_t config = 0;
@@ -80,13 +80,14 @@ void INA219b::getData( int16_t * mVolt, int16_t * mAmpere, int16_t * mWatt ) {
   *mVolt >>= 1;               // ( >> 3 then * 4 (<< 2) / 1000 pour des volts) 
   *mVolt &= 0xFFFC;
 
-  // current - raw * Current_Lsb 
+  // current - raw * Current_Lsb -1 overflow at 16A
   *mAmpere = read16(I_SHUNT_R);
   *mAmpere <<= 1;
   *mAmpere /= 10;
 
   // Power - raw * power_lsb
-  *mWatt = read16(P_BUS_R);
+  int16_t mw = read16(P_BUS_R);
+  *mWatt = mw;
   *mWatt <<= 2;
 
   config |= (RANGE_32V << BRNG | GAIN_8_320MV << PG_0 | ADC_12BIT << BADC1 | ADC_12BIT << SADC1 | PWR_DOWN);
