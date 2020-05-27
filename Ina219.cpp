@@ -69,7 +69,7 @@ void INA219b::getData( int16_t * mVolt, int16_t * mAmpere, int32_t * mWatt ) {
 
   // calibrate - precalculate value for 0.05 ohm, 320mV, 32V, 6.4A max
   // Cal value : 4096
-  // Current_Lsb = 2/10_000 => 2 / 10 for mA unit
+  // Current_Lsb = 2/10_000 => 2 / 10 for mA unit => /5
   // Power_lsb = 40/10_000 => 40 / 10 for mW  => *4
   write16(CAL_R, 4096);
 
@@ -82,8 +82,8 @@ void INA219b::getData( int16_t * mVolt, int16_t * mAmpere, int32_t * mWatt ) {
 
   // current - raw * Current_Lsb -1 overflow at 16A
   *mAmpere = read16(I_SHUNT_R);
-  *mAmpere <<= 1;
-  *mAmpere /= 10;
+  *mAmpere /= 5; 
+ 
 
   // Power - raw * power_lsb
   int16_t mw = read16(P_BUS_R);

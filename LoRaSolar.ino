@@ -96,11 +96,24 @@ void readBatteryCurrentAndVoltage(int16_t * voltage, int16_t * current, int16_t 
     ina219.getData( voltage, current, &_pwr );
     *voltage /= 10;
     *current /= 10;
-    *pwr = (int16_t)(_pwr / 10);
+    _pwr /= 10;
+    *pwr = (int16_t)(_pwr);
 }
 
 void loop() {
     static uint32_t duration = 0;
+    static int32_t _current = 0;
+    static int32_t _power = 0;
+    static int16_t _loop = 0;
+
+    // measure current / power on every loops for averaging
+    int16_t batI;
+    int16_t batU;
+    int16_t batP;
+    readBatteryCurrentAndVoltage(&batU,&batI,&batP);
+    _current += batI;
+    _power += batP;
+    _loop++;
 
     long start = millis(); 
 
@@ -108,11 +121,14 @@ void loop() {
       duration -= TRANSMIT_FREQ_S;
       int temp = readTemperature();
       int vcc = readVcc();
-      int16_t batI;
-      int16_t batU;
-      int16_t batP;
-      readBatteryCurrentAndVoltage(&batU,&batI,&batP);
+
       uint8_t extStatus = readExternalVoltage();
+
+      batI = (int16_t) (_current / _loop);
+      batP = (int16_t) (_power / _loop);
+      _loop = 0;
+      _current = 0;
+      _power = 0;
       
       LOG((F("Temp : ")));LOGLN((temp));
       LOG((F("Vcc : ")));LOGLN((vcc));
